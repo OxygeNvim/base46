@@ -1,5 +1,5 @@
 <h1 align="center">Base46</h1>
-<h2 align="center">This plugin merges most of the popular themes in one</h2>
+<h2 align="center">Yet another theme plugin</h2>
 
 <p align="center">
   <img alt="Stargazers" src="https://img.shields.io/github/stars/OxygeNvim/OxygeNvim?style=for-the-badge" />
