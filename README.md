@@ -15,8 +15,6 @@
 <details>
 <summary>Packer</summary>
 
-<br>
-
 ```lua
 use({
   'CanKolay3499/base46',
@@ -26,13 +24,10 @@ use({
   end,
 })
 ```
-
 </details>
 
 <details>
 <summary>Lazy</summary>
-
-<br>
 
 ```lua
 {
@@ -43,7 +38,6 @@ use({
   end,
 }
 ```
-
 </details>
 
 ## Contribute for new themes
