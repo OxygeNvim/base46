@@ -4,7 +4,6 @@
 <p align="center">
   <img alt="Stargazers" src="https://img.shields.io/github/stars/OxygeNvim/OxygeNvim?style=for-the-badge" />
   <img alt="Issues" src="https://img.shields.io/github/issues/OxygeNvim/OxygeNvim?style=for-the-badge" />
-  <img alt="Tests" src="https://img.shields.io/github/workflow/status/OxygeNvim/OxygeNvim/Tests/main?style=for-the-badge&label=Build" />
 </p>
 
 > ⚠️ This project is in their development stage, Error's may occur!
