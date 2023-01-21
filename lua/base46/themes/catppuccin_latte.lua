@@ -56,27 +56,20 @@ M.base_16 = {
 M.syntax = {
   special = M.base_16.base09,
   fn = M.base_16.base0D,
-  keyword = M.base_16.base08,
+  keyword = M.base_16.base0E,
   string = M.base_16.base0B,
-  boolean = M.base_16.base09,
-  number = M.base_16.base09,
+  boolean = M.base_16.base0A,
+  number = M.base_16.base0A,
   variable = M.base_16.base07,
   constant = M.base_16.base07,
   parameter = M.base_16.base08,
   type = M.base_16.base0A,
   constructor = M.base_16.base0C,
   property = M.base_16.base0A,
-  delimiter = M.base_16.base04,
-  bracket = M.base_16.base04,
+  delimiter = M.base_16.base05,
+  bracket = M.base_16.base05,
   tag = M.base_16.base0C,
   error = M.base_16.base08,
-}
-
-M.polish_hl = {
-  Include = { fg = M.base_16.base0C },
-  Conditional = { fg = M.base_16.base0C },
-  ['@keyword.return'] = { fg = M.base_16.base0C },
-  ['@keyword.export'] = { fg = M.base_16.base0C },
 }
 
 M.type = 'light'

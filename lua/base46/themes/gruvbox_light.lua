@@ -66,8 +66,8 @@ M.syntax = {
   type = M.base_16.base0A,
   constructor = M.base_16.base0C,
   property = M.base_16.base0A,
-  delimiter = M.base_16.base04,
-  bracket = M.base_16.base04,
+  delimiter = M.base_16.base05,
+  bracket = M.base_16.base05,
   tag = M.base_16.base0C,
   error = M.base_16.base08,
 }

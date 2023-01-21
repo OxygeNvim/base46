@@ -55,9 +55,9 @@ M.base_16 = {
 }
 
 M.syntax = {
-  special = M.base_16.base09,
+  special = M.base_16.base08,
   fn = M.base_16.base0D,
-  keyword = M.base_16.base08,
+  keyword = M.base_16.base0E,
   string = M.base_16.base0B,
   boolean = M.base_16.base09,
   number = M.base_16.base09,
@@ -65,19 +65,12 @@ M.syntax = {
   constant = M.base_16.base07,
   parameter = M.base_16.base08,
   type = M.base_16.base0A,
-  constructor = M.base_16.base0C,
-  property = M.base_16.base0A,
+  constructor = M.base_16.base0D,
+  property = M.base_16.base0C,
   delimiter = M.base_16.base04,
   bracket = M.base_16.base04,
-  tag = M.base_16.base0C,
+  tag = M.base_16.base0D,
   error = M.base_16.base08,
-}
-
-M.polish_hl = {
-  Include = { fg = M.base_16.base0C },
-  Conditional = { fg = M.base_16.base0C },
-  ['@keyword.return'] = { fg = M.base_16.base0C },
-  ['@keyword.export'] = { fg = M.base_16.base0C },
 }
 
 M.type = 'dark'
