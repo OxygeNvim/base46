@@ -16,7 +16,7 @@ base46.load_highlight = function(group)
 
   if type(group) == 'string' then
     local ok
-    ok, highlights = true, require('oxygen.base46.highlights.' .. group)
+    ok, highlights = r('oxygen.base46.highlights.' .. group)
 
     if not ok then
       error('Can\'t find highlight: ' .. group)
