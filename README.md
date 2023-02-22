@@ -1,44 +1,12 @@
 <h1 align="center">Base46</h1>
-<h2 align="center">Yet another theme plugin</h2>
+<h2 align="center">Theme plugin for OxygeNvim</h2>
+
+> ⚠️ Warning: This plugin only works with OxygeNvim!
 
 <p align="center">
   <img alt="Stargazers" src="https://img.shields.io/github/stars/OxygeNvim/OxygeNvim?style=for-the-badge" />
   <img alt="Issues" src="https://img.shields.io/github/issues/OxygeNvim/OxygeNvim?style=for-the-badge" />
 </p>
-
-> ⚠️ This project is in their development stage, Error's may occur!
-
-- This plugin is a whole re-write of Norcalli's and NvChad's plugin
-
-## Installation
-
-<details>
-<summary>Packer</summary>
-
-```lua
-use({
-  'CanKolay3499/base46',
-  config = function()
-    local base46 = require('base46')
-    base46.setup({ theme = 'rosepine' })
-  end,
-})
-```
-</details>
-
-<details>
-<summary>Lazy</summary>
-
-```lua
-{
-  'CanKolay3499/base46',
-  config = function()
-    local base46 = require('base46')
-    base46.setup({ theme = 'rosepine' })
-  end,
-}
-```
-</details>
 
 ## Contribute for new themes
 
@@ -62,11 +30,9 @@ return M
 ## Understanding theme variables
 
 - Read the following for base_16 variables https://github.com/chriskempson/base16/blob/master/styling.md
-
-- Use a color lightening/darkening tool, such as this https://siduck.github.io/hex-tools/
 - The following variables are for base_30
 
-```lua
+```
 black = usually your theme bg
 darker_black = 6% darker than black
 black2 = 6% lighter than black
@@ -95,5 +61,5 @@ folder_bg = blue color
 ```
 
 ## Credits
-- [NvChad](https://github.com/NvChad/base46)
-- [nvim-base16.lua](https://github.com/norcalli/nvim-base16.lua)
+- [NvChad/base46](https://github.com/NvChad/base46)
+- [norcalli/nvim-base16.lua](https://github.com/norcalli/nvim-base16.lua)
