@@ -3,8 +3,10 @@
 stds.nvim = {
   globals = {
     'vim',
-    'base46_config',
-    'base46_colors',
+    'utils',
+    'base46',
+    'config',
+    'r',
   },
   read_globals = {
     'os',
