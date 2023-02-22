@@ -61,8 +61,9 @@ local styles = {
 }
 
 if not styles[style] then
-  error('Invalid style for cmp ' .. style)
-  return {}
+  utils.logger.error('Invalid style for nvim-cmp: ' .. style)
+  utils.logger.warn('Using default style for nvim-cmp')
+  style = 'default'
 end
 
 if style == 'atom' then
