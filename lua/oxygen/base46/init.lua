@@ -1,9 +1,11 @@
 require('oxygen.base46.utils')
 
 --- @class Base46
-_G.base46 = {}
-
-base46.colors = {}
+_G.base46 = {
+  cache_dir = vim.fn.stdpath('cache') .. '/oxygen/base46/',
+  filesystem = {},
+  colors = {},
+}
 
 --- @param type "base_30"|"base_16"|"syntax"|"polish_hl"|"type"
 base46.get_theme_tb = function(type)
@@ -66,8 +68,49 @@ base46.set_colors = function(theme_name)
   end
 end
 
+base46.filesystem.check_theme = function()
+  return vim.loop.fs_stat(base46.cache_dir .. 'theme')
+end
+
+base46.filesystem.get_theme = function()
+  local file = io.open(base46.cache_dir .. 'theme', 'r')
+  if file then
+    return file:read('*a')
+  end
+end
+
+base46.filesystem.set_theme = function(theme)
+  local file = io.open(base46.cache_dir .. 'theme', 'w')
+  if file then
+    file:write(theme)
+    file:close()
+
+    utils.logger.log('Changed theme to ' .. theme)
+  end
+end
+
+base46.filesystem.create_cache_dir = function()
+  if not vim.loop.fs_stat(base46.cache_dir) then
+    vim.fn.mkdir(base46.cache_dir, 'p')
+  end
+end
+
+base46.change_theme = function(theme)
+  base46.filesystem.set_theme(theme)
+end
+
 base46.setup = function()
-  base46.set_colors(config.ui.theme)
+  local theme = config.ui.theme
+
+  base46.filesystem.create_cache_dir()
+
+  if not base46.filesystem.check_theme() then
+    base46.filesystem.set_theme(theme)
+  end
+
+  theme = base46.filesystem.get_theme()
+
+  base46.set_colors(theme)
 end
 
 return base46
