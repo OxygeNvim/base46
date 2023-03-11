@@ -64,7 +64,7 @@ base46.set_colors = function(theme_name)
     base46.load_highlight('main')
     base46.load_highlight('syntax')
   else
-    error('Can\'t find theme: ' .. theme)
+    utils.logger.error('Can\'t find theme: ' .. theme)
   end
 end
 
