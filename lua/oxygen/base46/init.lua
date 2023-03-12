@@ -1,11 +1,30 @@
-require('oxygen.base46.utils')
-
 --- @class Base46
 _G.base46 = {
   cache_dir = vim.fn.stdpath('cache') .. '/oxygen/base46/',
   filesystem = {},
   colors = {},
+  loaded_highlights = {},
 }
+
+--- @param highlights table
+base46.turn_str_to_color = function(highlights)
+  local tb = vim.deepcopy(highlights)
+  local colors = base46.get_theme_tb('base_30')
+
+  for _, groups in pairs(tb) do
+    for k, v in pairs(groups) do
+      if k == 'fg' or k == 'bg' then
+        -- luacheck: ignore
+        if v:sub(1, 1) == '#' or v == 'none' or v == 'NONE' then
+        else
+          groups[k] = colors[v]
+        end
+      end
+    end
+  end
+
+  return tb
+end
 
 --- @param type "base_30"|"base_16"|"syntax"|"polish_hl"|"type"
 base46.get_theme_tb = function(type)
@@ -13,19 +32,13 @@ base46.get_theme_tb = function(type)
 end
 
 --- @param group string|table
-base46.load_highlight = function(group)
-  local highlights = {}
+base46.load_highlight = function(group, a)
+  local ok, highlights = nil, {}
 
-  if type(group) == 'string' then
-    local ok
-    ok, highlights = r('oxygen.base46.highlights.' .. group)
-
-    if not ok then
-      error('Can\'t find highlight: ' .. group)
-      return
-    end
-  elseif type(group) == 'table' then
-    highlights = vim.deepcopy(group)
+  ok, highlights = r('oxygen.base46.highlights.' .. group)
+  if not ok then
+    utils.logger.error('Can\'t find highlight: ' .. group)
+    return
   end
 
   local polish_hl = base46.get_theme_tb('polish_hl')
@@ -48,6 +61,10 @@ base46.load_highlight = function(group)
 
   for hl, col in pairs(highlights) do
     vim.api.nvim_set_hl(0, hl, col)
+  end
+
+  if not a then
+    table.insert(base46.loaded_highlights, group)
   end
 end
 
@@ -98,6 +115,10 @@ end
 base46.change_theme = function(theme)
   base46.filesystem.set_theme(theme)
   base46.setup()
+
+  for _, hl in pairs(base46.loaded_highlights) do
+    base46.load_highlight(hl, true)
+  end
 end
 
 base46.setup = function()
@@ -109,7 +130,6 @@ base46.setup = function()
   end
 
   theme = base46.filesystem.get_theme()
-
   base46.set_colors(theme)
 end
 
