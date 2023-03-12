@@ -68,7 +68,7 @@ end
 
 if style == 'atom' then
   for key, value in pairs(item_kinds) do
-    item_kinds[key] = { bg = value.fg, fg = utils.change_hex_lightness(colors.black, -3), bold = true }
+    item_kinds[key] = { bg = value.fg, fg = colors.black, bold = true }
   end
 end
 

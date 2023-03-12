@@ -97,13 +97,13 @@ end
 
 base46.change_theme = function(theme)
   base46.filesystem.set_theme(theme)
+  base46.setup()
 end
 
 base46.setup = function()
   local theme = config.ui.theme
 
   base46.filesystem.create_cache_dir()
-
   if not base46.filesystem.check_theme() then
     base46.filesystem.set_theme(theme)
   end
