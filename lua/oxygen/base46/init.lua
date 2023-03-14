@@ -93,7 +93,7 @@ end
 
 --- @return table
 base46.get_themes = function()
-  local themes = utils.filesystem.get_dir_contents(base46.dir .. '/highlights')
+  local themes = utils.filesystem.get_dir_contents(base46.dir .. '/themes')
 
   for index, theme in pairs(themes) do
     themes[index] = vim.fn.fnamemodify(vim.fn.fnamemodify(theme, ':t'), ':r')
