@@ -8,7 +8,7 @@ return {
   },
   LazyButton = {
     bg = colors.one_bg,
-    fg = utils.change_hex_lightness(colors.light_grey, vim.o.bg == 'dark' and 10 or -20),
+    fg = colors.light_grey,
   },
   LazyH2 = {
     fg = colors.red,

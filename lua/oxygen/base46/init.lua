@@ -1,10 +1,50 @@
 --- @class Base46
 _G.base46 = {
-  cache_dir = vim.fn.stdpath('cache') .. '/oxygen/base46/',
-  filesystem = {},
+  cache_dir = vim.fn.stdpath('cache') .. '/oxygen/base46',
+  dir = vim.fn.fnamemodify(debug.getinfo(1, 'S').source:sub(2), ':p:h'),
   colors = {},
   loaded_highlights = {},
 }
+
+--- @param type "base_30"|"base_16"|"syntax"|"polish_hl"|"type"
+base46.get_theme_tb = function(type)
+  return base46.colors[type]
+end
+
+base46.get_highlights = function(filename)
+  local ok, highlights = r('oxygen.base46.highlights.' .. filename)
+  if not ok then
+    utils.logger.error('Can\'t find highlight: ' .. filename)
+    return {}
+  end
+
+  return highlights
+end
+
+--- @param filename string|table
+base46.extend_hl = function(filename)
+  local highlights = base46.get_highlights(filename)
+
+  local polish_hl = base46.get_theme_tb('polish_hl')
+  if polish_hl then
+    for key, value in pairs(polish_hl) do
+      if highlights[key] then
+        highlights[key] = utils.merge(highlights[key], value)
+      end
+    end
+  end
+
+  if config.ui.highlights.override then
+    local overriden_hl = base46.turn_str_to_color(config.ui.highlights.override)
+    for key, value in pairs(overriden_hl) do
+      if highlights[key] then
+        highlights[key] = utils.merge(highlights[key], value)
+      end
+    end
+  end
+
+  return highlights
+end
 
 --- @param highlights table
 base46.turn_str_to_color = function(highlights)
@@ -26,46 +66,70 @@ base46.turn_str_to_color = function(highlights)
   return tb
 end
 
---- @param type "base_30"|"base_16"|"syntax"|"polish_hl"|"type"
-base46.get_theme_tb = function(type)
-  return base46.colors[type]
+base46.highlight_to_str = function(highlights)
+  local content = ''
+
+  for group, hl_values in pairs(highlights) do
+    local hl_name = '"' .. group .. '",'
+    local hl_opts = ''
+
+    for name, value in pairs(hl_values) do
+      local value_str = ((type(value)) == 'boolean' or type(value) == 'number') and tostring(value)
+          or '"' .. value .. '"'
+      hl_opts = hl_opts .. name .. '=' .. value_str .. ','
+    end
+
+    content = content .. 'vim.api.nvim_set_hl(0, ' .. hl_name .. '{' .. hl_opts .. '})'
+  end
+
+  return content
 end
 
---- @param group string|table
-base46.load_highlight = function(group, a)
-  local ok, highlights = nil, {}
+base46.compile_file = function(filename, highlights)
+  local bg = 'vim.opt.bg="' .. base46.get_theme_tb('type') .. '"'
+  local main = filename == 'main' and bg or ''
 
-  ok, highlights = r('oxygen.base46.highlights.' .. group)
-  if not ok then
-    utils.logger.error('Can\'t find highlight: ' .. group)
-    return
-  end
+  local lines = 'base46.compiled = string.dump(function() '
+      .. main
+      .. ' '
+      .. base46.highlight_to_str(highlights)
+      .. ' end)'
 
-  local polish_hl = base46.get_theme_tb('polish_hl')
-  if polish_hl then
-    for key, value in pairs(polish_hl) do
-      if highlights[key] then
-        highlights[key] = utils.merge(highlights[key], value)
-      end
-    end
-  end
+  loadstring(lines, '=')()
 
-  if config.ui.override_highlights then
-    local overriden_hl = utils.turn_str_to_color(config.ui.override_highlights)
-    for key, value in pairs(overriden_hl) do
-      if highlights[key] then
-        highlights[key] = utils.merge(highlights[key], value)
-      end
-    end
-  end
+  utils.filesystem.write_file(base46.cache_dir .. '/compiled/' .. filename, base46.compiled)
+end
 
-  for hl, col in pairs(highlights) do
-    vim.api.nvim_set_hl(0, hl, col)
+base46.compile = function()
+  for _, file in ipairs(utils.filesystem.get_dir_contents(base46.dir .. '/highlights')) do
+    local filename = vim.fn.fnamemodify(file, ':r')
+    base46.compile_file(filename, base46.extend_hl(filename))
   end
+end
+
+base46.load_highlight = function(filename, a)
+  dofile(base46.cache_dir .. '/compiled/' .. filename)
 
   if not a then
-    table.insert(base46.loaded_highlights, group)
+    table.insert(base46.loaded_highlights, filename)
   end
+end
+
+base46.change_theme = function(theme)
+  utils.filesystem.write_file(base46.cache_dir .. '/theme', theme)
+
+  require('plenary.reload').reload_module('oxygen.base46')
+
+  base46.set_colors(theme)
+  base46.compile()
+
+  for _, filename in pairs(base46.loaded_highlights) do
+    base46.load_highlight(filename, true)
+  end
+
+  utils.filesystem.write_file(base46.cache_dir .. '/theme', theme)
+
+  utils.logger.log('Changed theme to ' .. theme)
 end
 
 base46.set_colors = function(theme_name)
@@ -73,8 +137,6 @@ base46.set_colors = function(theme_name)
 
   if ok_theme then
     base46.colors = theme
-
-    vim.opt.bg = theme['type'] or 'dark'
 
     require('oxygen.base46.terminal')
 
@@ -85,51 +147,23 @@ base46.set_colors = function(theme_name)
   end
 end
 
-base46.filesystem.check_theme = function()
-  return vim.loop.fs_stat(base46.cache_dir .. 'theme')
-end
-
-base46.filesystem.get_theme = function()
-  local file = io.open(base46.cache_dir .. 'theme', 'r')
-  if file then
-    return file:read('*a')
-  end
-end
-
-base46.filesystem.set_theme = function(theme)
-  local file = io.open(base46.cache_dir .. 'theme', 'w')
-  if file then
-    file:write(theme)
-    file:close()
-
-    utils.logger.log('Changed theme to ' .. theme)
-  end
-end
-
-base46.filesystem.create_cache_dir = function()
-  if not vim.loop.fs_stat(base46.cache_dir) then
-    vim.fn.mkdir(base46.cache_dir, 'p')
-  end
-end
-
-base46.change_theme = function(theme)
-  base46.filesystem.set_theme(theme)
-  base46.setup()
-
-  for _, hl in pairs(base46.loaded_highlights) do
-    base46.load_highlight(hl, true)
-  end
-end
-
 base46.setup = function()
   local theme = config.ui.theme
 
-  base46.filesystem.create_cache_dir()
-  if not base46.filesystem.check_theme() then
-    base46.filesystem.set_theme(theme)
+  if
+      not utils.filesystem.check_dir(base46.cache_dir) or not utils.filesystem.check_dir(base46.cache_dir .. '/compiled')
+  then
+    utils.filesystem.create_dir(base46.cache_dir)
+    utils.filesystem.create_dir(base46.cache_dir .. '/compiled')
+
+    base46.compile()
   end
 
-  theme = base46.filesystem.get_theme()
+  if not utils.filesystem.check_file(base46.cache_dir .. '/theme') then
+    utils.filesystem.write_file(base46.cache_dir .. '/theme', theme)
+  end
+
+  theme = utils.filesystem.get_file(base46.cache_dir .. '/theme')
   base46.set_colors(theme)
 end
 
