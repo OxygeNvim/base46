@@ -173,7 +173,8 @@ base46.setup = function()
   local theme = config.ui.theme
 
   if
-      not utils.filesystem.check_dir(base46.cache_dir) or not utils.filesystem.check_dir(base46.cache_dir .. '/compiled')
+      not utils.filesystem.check_dir(base46.cache_dir)
+      or not utils.filesystem.check_dir(base46.cache_dir .. '/compiled')
   then
     utils.filesystem.create_dir(base46.cache_dir)
     utils.filesystem.create_dir(base46.cache_dir .. '/compiled')
