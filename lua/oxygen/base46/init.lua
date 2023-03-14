@@ -81,7 +81,7 @@ base46.highlight_to_str = function(highlights)
 
     for name, value in pairs(hl_values) do
       local value_str = ((type(value)) == 'boolean' or type(value) == 'number') and tostring(value)
-          or '"' .. value .. '"'
+        or '"' .. value .. '"'
       hl_opts = hl_opts .. name .. '=' .. value_str .. ','
     end
 
@@ -109,10 +109,10 @@ base46.compile_file = function(file_name, highlights)
   local main = file_name == 'main' and bg or ''
 
   local lines = 'base46.compiled = string.dump(function() '
-      .. main
-      .. ' '
-      .. base46.highlight_to_str(highlights)
-      .. ' end)'
+    .. main
+    .. ' '
+    .. base46.highlight_to_str(highlights)
+    .. ' end)'
 
   loadstring(lines, '=')()
 
@@ -173,8 +173,8 @@ base46.setup = function()
   local theme = config.ui.theme
 
   if
-      not utils.filesystem.check_dir(base46.cache_dir)
-      or not utils.filesystem.check_dir(base46.cache_dir .. '/compiled')
+    not utils.filesystem.check_dir(base46.cache_dir)
+    or not utils.filesystem.check_dir(base46.cache_dir .. '/compiled')
   then
     utils.filesystem.create_dir(base46.cache_dir)
     utils.filesystem.create_dir(base46.cache_dir .. '/compiled')
