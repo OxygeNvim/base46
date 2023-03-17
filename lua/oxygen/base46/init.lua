@@ -4,6 +4,8 @@ _G.base46 = {
   dir = vim.fn.fnamemodify(debug.getinfo(1, 'S').source:sub(2), ':p:h'),
   colors = {},
   loaded_highlights = {},
+  compiled = nil,
+  dir_created = false,
 }
 
 --- @param type "base_30"|"base_16"|"syntax"|"polish_hl"|"type"
@@ -81,7 +83,7 @@ base46.highlight_to_str = function(highlights)
 
     for name, value in pairs(hl_values) do
       local value_str = ((type(value)) == 'boolean' or type(value) == 'number') and tostring(value)
-        or '"' .. value .. '"'
+          or '"' .. value .. '"'
       hl_opts = hl_opts .. name .. '=' .. value_str .. ','
     end
 
@@ -109,10 +111,10 @@ base46.compile_file = function(file_name, highlights)
   local main = file_name == 'main' and bg or ''
 
   local lines = 'base46.compiled = string.dump(function() '
-    .. main
-    .. ' '
-    .. base46.highlight_to_str(highlights)
-    .. ' end)'
+      .. main
+      .. ' '
+      .. base46.highlight_to_str(highlights)
+      .. ' end)'
 
   loadstring(lines, '=')()
 
@@ -123,8 +125,11 @@ base46.compile = function()
   for _, file in ipairs(utils.filesystem.get_dir_contents(base46.dir .. '/highlights')) do
     local filename = vim.fn.fnamemodify(file, ':r')
     base46.compile_file(filename, base46.extend_hl(filename))
+
+    utils.logger.log('Compiled ' .. filename, false, true)
   end
 end
+
 --- @param file_name string
 --- @param a? boolean
 base46.load_highlight = function(file_name, a)
@@ -159,35 +164,46 @@ base46.set_colors = function(theme_name)
 
   if ok_theme then
     base46.colors = theme
-
-    require('oxygen.base46.terminal')
-
-    base46.load_highlight('main')
-    base46.load_highlight('syntax')
   else
     utils.logger.error('Can\'t find theme: ' .. theme)
+  end
+end
+
+base46.main_highlights = function()
+  require('oxygen.base46.terminal')
+
+  base46.load_highlight('main')
+  base46.load_highlight('syntax')
+end
+
+base46.create_dirs = function()
+  if
+      not utils.filesystem.check_dir(base46.cache_dir)
+      or not utils.filesystem.check_dir(base46.cache_dir .. '/compiled')
+  then
+    utils.filesystem.create_dir(base46.cache_dir)
+    utils.filesystem.create_dir(base46.cache_dir .. '/compiled')
+
+    base46.dir_created = true
   end
 end
 
 base46.setup = function()
   local theme = config.ui.theme
 
-  if
-    not utils.filesystem.check_dir(base46.cache_dir)
-    or not utils.filesystem.check_dir(base46.cache_dir .. '/compiled')
-  then
-    utils.filesystem.create_dir(base46.cache_dir)
-    utils.filesystem.create_dir(base46.cache_dir .. '/compiled')
-
-    base46.compile()
-  end
-
+  base46.create_dirs()
   if not utils.filesystem.check_file(base46.cache_dir .. '/theme') then
     utils.filesystem.write_file(base46.cache_dir .. '/theme', theme)
   end
-
   theme = utils.filesystem.get_file(base46.cache_dir .. '/theme')
+
   base46.set_colors(theme)
+
+  if base46.dir_created then
+    base46.compile()
+  end
+
+  base46.main_highlights()
 end
 
 return base46
