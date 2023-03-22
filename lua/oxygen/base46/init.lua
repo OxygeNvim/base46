@@ -83,7 +83,7 @@ base46.highlight_to_str = function(highlights)
 
     for name, value in pairs(hl_values) do
       local value_str = ((type(value)) == 'boolean' or type(value) == 'number') and tostring(value)
-          or '"' .. value .. '"'
+        or '"' .. value .. '"'
       hl_opts = hl_opts .. name .. '=' .. value_str .. ','
     end
 
@@ -111,10 +111,10 @@ base46.compile_file = function(file_name, highlights)
   local main = file_name == 'main' and bg or ''
 
   local lines = 'base46.compiled = string.dump(function() '
-      .. main
-      .. ' '
-      .. base46.highlight_to_str(highlights)
-      .. ' end)'
+    .. main
+    .. ' '
+    .. base46.highlight_to_str(highlights)
+    .. ' end)'
 
   loadstring(lines, '=')()
 
@@ -178,8 +178,8 @@ end
 
 base46.create_dirs = function()
   if
-      not utils.filesystem.check_dir(base46.cache_dir)
-      or not utils.filesystem.check_dir(base46.cache_dir .. '/compiled')
+    not utils.filesystem.check_dir(base46.cache_dir)
+    or not utils.filesystem.check_dir(base46.cache_dir .. '/compiled')
   then
     utils.filesystem.create_dir(base46.cache_dir)
     utils.filesystem.create_dir(base46.cache_dir .. '/compiled')
@@ -195,6 +195,7 @@ base46.setup = function()
   if not utils.filesystem.check_file(base46.cache_dir .. '/theme') then
     utils.filesystem.write_file(base46.cache_dir .. '/theme', theme)
   end
+
   theme = utils.filesystem.get_file(base46.cache_dir .. '/theme')
 
   base46.set_colors(theme)
@@ -202,8 +203,6 @@ base46.setup = function()
   if base46.dir_created then
     base46.compile()
   end
-
-  base46.main_highlights()
 end
 
 return base46
