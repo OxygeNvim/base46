@@ -4,15 +4,11 @@ local M = {}
 
 M.base_30 = {
   white = '#c0caf5',
-  darker_black = '#16161e',
-  black = '#1a1b26',
-  black2 = '#1f2336',
-  one_bg = '#24283b',
-  one_bg2 = '#414868',
-  one_bg3 = '#353b45',
+  darker_black = '#1f2335',
+  black = '#24283b',
+  black2 = '#292e42',
   grey = '#40486a',
   grey_fg = '#565f89',
-  grey_fg2 = '#4f5779',
   light_grey = '#545c7e',
   red = '#f7768e',
   baby_pink = '#DE8C92',
@@ -29,7 +25,6 @@ M.base_30 = {
   teal = '#1abc9c',
   orange = '#ff9e64',
   cyan = '#7dcfff',
-  lightbg = '#32333e',
   pmenu_bg = '#7aa2f7',
   folder_bg = '#7aa2f7',
 }
@@ -56,6 +51,8 @@ M.base_16 = {
 M.syntax = {
   special = M.base_16.base08,
   fn = M.base_16.base0D,
+  method = M.base_16.base0D,
+  null = M.base_16.base09,
   keyword = M.base_30.dark_purple,
   string = M.base_16.base0B,
   boolean = M.base_16.base09,
@@ -65,11 +62,16 @@ M.syntax = {
   parameter = M.base_16.base0A,
   type = M.base_16.base0C,
   constructor = M.base_16.base0D,
-  property = M.base_16.base0B,
-  field = M.base_16.base0B,
+  property = M.base_30.vibrant_green,
+  field = M.base_30.vibrant_green,
   operator = M.base_16.base05,
+  attribute = M.base_16.base0D,
   tag = M.base_16.base0D,
   error = M.base_16.base08,
+}
+
+M.polish_hl = {
+  Include = { fg = M.base_30.cyan },
 }
 
 M.type = 'dark'

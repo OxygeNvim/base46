@@ -53,7 +53,7 @@ end
 --- @param save_file? boolean
 base46.change_theme = function(theme_name, save_file)
   if save_file then
-    utils.replace_word(config.ui.theme, theme_name)
+    utils.replace_word(vim.fn.stdpath('config') .. '/lua/config.lua',config.ui.theme, theme_name)
   end
 
   config.ui.theme = theme_name

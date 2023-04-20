@@ -4,5 +4,5 @@ return {
   IndentBlanklineChar = { fg = colors.line },
   IndentBlanklineSpaceChar = { fg = colors.line },
   IndentBlanklineContextChar = { fg = colors.grey },
-  IndentBlanklineContextStart = { bg = colors.one_bg2 },
+  IndentBlanklineContextStart = { bg = colors.black2 },
 }

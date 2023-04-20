@@ -9,6 +9,8 @@ return {
   DiagnosticError = { fg = colors.red },
   DiagnosticWarn = { fg = colors.yellow },
   DiagnosticInfo = { fg = colors.green },
+  DiagnosticUnnecessary = { link = 'Comment' },
+  DiagnosticDeprecates = { link = 'Comment' },
 
   DiagnosticInformation = { link = 'DiagnosticInfo' },
 

@@ -7,7 +7,7 @@ return {
     fg = colors.black,
   },
   LazyButton = {
-    bg = colors.one_bg,
+    bg = colors.black2,
     fg = colors.light_grey,
   },
   LazyH2 = {

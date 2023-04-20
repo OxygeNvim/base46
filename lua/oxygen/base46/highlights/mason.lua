@@ -7,5 +7,5 @@ return {
   MasonHighlightBlockBold = { link = 'MasonHighlightBlock' },
   MasonHeaderSecondary = { link = 'MasonHighlightBlock' },
   MasonMuted = { fg = colors.light_grey },
-  MasonMutedBlock = { fg = colors.light_grey, bg = colors.one_bg },
+  MasonMutedBlock = { fg = colors.light_grey, bg = colors.black2 },
 }

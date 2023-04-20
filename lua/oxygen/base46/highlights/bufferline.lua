@@ -1,20 +1,21 @@
 local colors = base46.get_theme_tb('base_30')
 
 local primary = colors.black
+local secondary = colors.darker_black
 
 return {
   BufferLineBackground = {
     fg = colors.light_grey,
-    bg = colors.darker_black,
+    bg = secondary,
   },
   BufferLineFill = {
     fg = colors.light_grey,
-    bg = colors.darker_black,
+    bg = secondary,
   },
 
   BufferLineBufferVisible = {
     fg = colors.light_grey,
-    bg = colors.darker_black,
+    bg = secondary,
   },
   BufferLineBufferSelected = {
     fg = colors.white,
@@ -23,11 +24,11 @@ return {
 
   BufferLineCloseButton = {
     fg = colors.light_grey,
-    bg = colors.darker_black,
+    bg = secondary,
   },
   BufferLineCloseButtonVisible = {
     fg = colors.light_grey,
-    bg = colors.darker_black,
+    bg = secondary,
   },
   BufferLineCloseButtonSelected = {
     fg = colors.red,
@@ -35,8 +36,8 @@ return {
   },
 
   BufferlineIndicatorVisible = {
-    fg = colors.darker_black,
-    bg = colors.darker_black,
+    fg = secondary,
+    bg = secondary,
   },
   BufferlineIndicatorSelected = {
     fg = primary,
@@ -45,11 +46,11 @@ return {
 
   BufferLineModified = {
     fg = colors.green,
-    bg = colors.darker_black,
+    bg = secondary,
   },
   BufferLineModifiedVisible = {
     fg = colors.green,
-    bg = colors.darker_black,
+    bg = secondary,
   },
   BufferLineModifiedSelected = {
     fg = colors.green,
@@ -57,12 +58,12 @@ return {
   },
 
   BufferLineSeparator = {
-    fg = colors.darker_black,
-    bg = colors.darker_black,
+    fg = secondary,
+    bg = secondary,
   },
   BufferLineSeparatorVisible = {
-    fg = colors.darker_black,
-    bg = colors.darker_black,
+    fg = secondary,
+    bg = secondary,
   },
   BufferLineSeparatorSelected = {
     fg = primary,
@@ -71,7 +72,7 @@ return {
 
   BufferLineTab = {
     fg = colors.light_grey,
-    bg = colors.darker_black,
+    bg = secondary,
   },
   BufferLineTabSelected = {
     fg = colors.light_grey,
@@ -87,11 +88,11 @@ return {
 
   BufferLineDuplicate = {
     fg = colors.light_grey,
-    bg = colors.darker_black,
+    bg = secondary,
   },
   BufferLineDuplicateVisible = {
     fg = colors.light_grey,
-    bg = colors.darker_black,
+    bg = secondary,
   },
   BufferLineDuplicateSelected = {
     fg = colors.light_grey,
