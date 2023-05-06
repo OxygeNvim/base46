@@ -50,10 +50,10 @@ base46.load_highlight = function(file_name, a)
 end
 
 --- @param theme_name string
---- @param save_file? boolean
-base46.change_theme = function(theme_name, save_file)
-  if save_file then
-    utils.replace_word(vim.fn.stdpath('config') .. '/lua/config.lua',config.ui.theme, theme_name)
+--- @param not_save_file? boolean
+base46.change_theme = function(theme_name, not_save_file)
+  if not not_save_file then
+    utils.replace_word(vim.fn.stdpath('config') .. '/lua/config.lua', config.ui.theme, theme_name)
   end
 
   config.ui.theme = theme_name

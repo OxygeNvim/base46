@@ -12,7 +12,6 @@ return {
   DevIconjs = { fg = colors.sun },
   DevIconTSX = { fg = colors.blue },
   DevIconJSX = { fg = colors.blue },
-  DevIconSvelte = { fg = colors.red },
   DevIconkt = { fg = colors.orange },
   DevIconlock = { fg = colors.red },
   DevIconlua = { fg = colors.blue },
@@ -32,4 +31,6 @@ return {
   DevIconxz = { fg = colors.sun },
   DevIconzip = { fg = colors.sun },
   DevIconZig = { fg = colors.orange },
+  DevIconSvelte = { fg = colors.orange },
+  DevIconJava = { fg = colors.red },
 }

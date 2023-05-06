@@ -16,6 +16,8 @@ return {
   DiffDelete = { fg = colors.red },
   DiffRemoved = { fg = colors.red },
   GitSignsAdd = { link = 'DiffAdded' },
+  diffOldFile = { fg = colors.baby_pink },
+  diffNewFile = { fg = colors.blue },
   GitSignsChange = { link = 'DiffModified' },
   GitSignsDelete = { link = 'DiffDelete' },
   gitcommitOverflow = { fg = theme.base08 },
