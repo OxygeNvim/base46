@@ -3,35 +3,38 @@ local theme = base46.get_theme_tb('base_16')
 
 return {
   LazyH1 = {
-    bg = colors.green,
+    bg = colors.red,
     fg = colors.black,
-  },
-  LazyButton = {
-    bg = colors.black2,
-    fg = colors.light_grey,
   },
   LazyH2 = {
     fg = colors.red,
     bold = true,
-    underline = true,
   },
-  LazyReasonPlugin = { fg = colors.red },
-  LazyValue = { fg = colors.teal },
+  LazyButton = {
+    bg = colors.black,
+    fg = colors.white,
+  },
+  LazyButtonActive = {
+    link = 'LazyH1',
+  },
+
+  LazyValue = { fg = colors.red },
   LazyDir = { fg = theme.base05 },
   LazyUrl = { fg = theme.base05 },
   LazyCommit = { fg = colors.green },
   LazyNoCond = { fg = colors.red },
-  LazySpecial = { fg = colors.blue },
+  LazySpecial = { fg = colors.light_grey },
   LazyReasonFt = { fg = colors.purple },
   LazyOperator = { fg = colors.white },
-  LazyReasonKeys = { fg = colors.teal },
   LazyTaskOutput = { fg = colors.white },
   LazyCommitIssue = { fg = colors.pink },
+  LazyReasonKeys = { fg = colors.orange },
   LazyReasonEvent = { fg = colors.yellow },
-  LazyReasonStart = { fg = colors.white },
-  LazyReasonRuntime = { fg = colors.nord_blue },
-  LazyReasonCmd = { fg = colors.sun },
+  LazyReasonPlugin = { fg = colors.red },
+  LazyReasonStart = { fg = colors.purple },
+  LazyReasonCmd = { fg = colors.cyan },
+  LazyReasonRuntime = { fg = colors.blue },
   LazyReasonSource = { fg = colors.cyan },
-  LazyReasonImport = { fg = colors.white },
-  LazyProgressDone = { fg = colors.green },
+  LazyReasonImport = { fg = colors.orange },
+  LazyProgressDone = { fg = colors.orange },
 }

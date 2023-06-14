@@ -53,7 +53,7 @@ end
 --- @param not_save_file? boolean
 base46.change_theme = function(theme_name, not_save_file)
   if not not_save_file then
-    utils.replace_word(vim.fn.stdpath('config') .. '/lua/config.lua', config.ui.theme, theme_name)
+    utils.replace_word(vim.fn.stdpath('config') .. '/lua/config/init.lua', config.ui.theme, theme_name)
   end
 
   config.ui.theme = theme_name
@@ -84,6 +84,7 @@ base46.main_highlights = function()
 
   base46.load_highlight('main')
   base46.load_highlight('syntax')
+  base46.load_highlight('lazy')
 end
 
 base46.setup = function()
