@@ -4,9 +4,13 @@ local base46 = require('oxygen.base46')
 local base16 = base46.get_theme_tb('base_16')
 local colors = base46.get_theme_tb('base_30')
 
-local style = config.ui.cmp_style
+local mix = require('oxygen.base46.colors').mix
+
+local style = config.ui.cmp.style
 
 local highlights = {
+  CmpDoc = { link = 'Pmenu' },
+  CmpPmenu = { link = 'Pmenu' },
   CmpGhostText = { link = 'Comment' },
   CmpBorder = { link = 'FloatBorder' },
   CmpDocBorder = { link = 'CmpBorder' },
@@ -17,50 +21,47 @@ local highlights = {
 }
 
 local item_kinds = {
-  CmpItemKindConstant = { link = 'Contant' },
-  CmpItemKindFunction = { link = 'Function' },
-  CmpItemKindIdentifier = { link = 'Identifier' },
-  CmpItemKindField = { link = 'Identifier' },
-  CmpItemKindVariable = { link = 'Variable' },
+  CmpItemKindConstant = { fg = base16.base09 },
+  CmpItemKindFunction = { fg = base16.base0D },
+  CmpItemKindIdentifier = { fg = base16.base08 },
+  CmpItemKindField = { fg = base16.base08 },
+  CmpItemKindVariable = { fg = base16.base0E },
   CmpItemKindSnippet = { fg = colors.red },
-  CmpItemKindText = { link = '@text' },
-  CmpItemKindStructure = { link = 'Structure' },
-  CmpItemKindType = { link = 'Type' },
-  CmpItemKindKeyword = { link = 'Keyword' },
-  CmpItemKindMethod = { link = '@method' },
-  CmpItemKindConstructor = { link = '@constructor' },
+  CmpItemKindText = { fg = base16.base0B },
+  CmpItemKindStructure = { fg = base16.base0E },
+  CmpItemKindType = { fg = base16.base0A },
+  CmpItemKindKeyword = { fg = base16.base07 },
+  CmpItemKindMethod = { fg = base16.base0D },
+  CmpItemKindConstructor = { fg = colors.blue },
   CmpItemKindFolder = { fg = base16.base07 },
-  CmpItemKindModule = { link = '@module' },
-  CmpItemKindProperty = { link = '@property' },
-  CmpItemKindEnum = { link = '@lsp.type.enum' },
-  CmpItemKindEnumMember = { link = '@lsp.type.enumMember' },
+  CmpItemKindModule = { fg = base16.base0A },
+  CmpItemKindProperty = { fg = base16.base08 },
+  CmpItemKindEnum = { fg = colors.blue },
   CmpItemKindUnit = { fg = base16.base0E },
-  CmpItemKindClass = { link = '@lsp.type.class' },
+  CmpItemKindClass = { fg = colors.teal },
   CmpItemKindFile = { fg = base16.base07 },
-  CmpItemKindInterface = { link = '@lsp.type.interface' },
+  CmpItemKindInterface = { fg = colors.green },
   CmpItemKindColor = { fg = colors.white },
   CmpItemKindReference = { fg = base16.base05 },
-  CmpItemKindStruct = { link = '@lsp.type.struct' },
+  CmpItemKindEnumMember = { fg = colors.purple },
+  CmpItemKindStruct = { fg = base16.base0E },
   CmpItemKindValue = { fg = colors.cyan },
   CmpItemKindEvent = { fg = colors.yellow },
-  CmpItemKindOperator = { link = 'Operator' },
-  CmpItemKindTypeParameter = { link = '@lsp.type.typeParameter' },
+  CmpItemKindOperator = { fg = base16.base05 },
+  CmpItemKindTypeParameter = { fg = base16.base08 },
   CmpItemKindCopilot = { fg = colors.green },
+  CmpItemKindCodeium = { fg = colors.vibrant_green },
+  CmpItemKindTabNine = { fg = colors.baby_pink },
+  CmpItemKindSuperMaven = { fg = colors.yellow },
 }
 
 local styles = {
-  default = {
-    CmpDoc = { link = 'Pmenu' },
-    CmpPmenu = { link = 'Pmenu' },
-  },
-  bordered = {
-    CmpDoc = { bg = colors.black },
-    CmpPmenu = { bg = colors.black },
-  },
+  default = {},
   atom = {
-    CmpDoc = { link = 'Pmenu' },
-    CmpPmenu = { link = 'Pmenu' },
-    CmpItemMenu = { bg = colors.black2 },
+    CmpItemMenu = { bg = colors.light_grey, italic = true },
+  },
+  atom_colored = {
+    CmpItemMenu = { bg = colors.light_grey, italic = true },
   },
 }
 
@@ -72,7 +73,13 @@ end
 
 if style == 'atom' then
   for key, value in pairs(item_kinds) do
-    item_kinds[key] = { bg = value.fg, fg = colors.black, bold = true }
+    item_kinds[key] = { fg = value.fg, bg = colors.black }
+  end
+end
+
+if style == 'atom_colored' then
+  for key, value in pairs(item_kinds) do
+    item_kinds[key] = { fg = value.fg, bg = mix(value.fg, colors.black, 85) }
   end
 end
 
