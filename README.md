@@ -11,10 +11,6 @@
 
 > ⚠️ Warning: This plugin only works with OxygeNvim!
 
-## Screenshots
-
-[https://github.com/OxygeNvim/OxygeNvim?tab=readme-ov-file#showcase](are on OxygeNvim readme)
-
 ## Credits
 
 - [NvChad/base46](https://github.com/NvChad/base46)
