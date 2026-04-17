@@ -9,59 +9,60 @@ local mix = require('oxygen.base46.colors').mix
 local style = config.ui.cmp.style
 
 local highlights = {
-  CmpDoc = { link = 'Pmenu' },
-  CmpPmenu = { link = 'Pmenu' },
-  CmpGhostText = { link = 'Comment' },
-  CmpBorder = { link = 'FloatBorder' },
-  CmpDocBorder = { link = 'CmpBorder' },
-  CmpItemAbbr = { fg = colors.white },
-  CmpItemAbbrDeprecated = { fg = colors.light_grey, strikethrough = true },
-  CmpItemAbbrMatch = { fg = colors.blue, bold = true },
-  CmpSel = { link = 'PmenuSel', bold = true },
+  BlinkCmpMenu = { link = 'Pmenu' },
+  BlinkCmpMenuBorder = { link = 'FloatBorder' },
+  BlinkCmpDoc = { link = 'Normal' },
+  BlinkCmpDocBorder = { link = 'FloatBorder' },
+  BlinkCmpDocSeperator = { link = 'BlinkCmpDocBorder' },
+  BlinkCmpSignatureHelp = { link = 'BlinkCmpDoc' },
+  BlinkCmpSignatureHelpBorder = { link = 'BlinkCmpDocBorder' },
+  BlinkCmpLabel = { fg = colors.white },
+  BlinkCmpLabelDeprecated = { fg = colors.light_grey, strikethrough = true },
+  BlinkCmpLabelMatch = { fg = colors.blue, bold = true },
+  BlinkCmpSel = { link = 'PmenuSel', bold = true },
 }
 
 local item_kinds = {
-  CmpItemKindConstant = { fg = base16.base09 },
-  CmpItemKindFunction = { fg = base16.base0D },
-  CmpItemKindIdentifier = { fg = base16.base08 },
-  CmpItemKindField = { fg = base16.base08 },
-  CmpItemKindVariable = { fg = base16.base0E },
-  CmpItemKindSnippet = { fg = colors.red },
-  CmpItemKindText = { fg = base16.base0B },
-  CmpItemKindStructure = { fg = base16.base0E },
-  CmpItemKindType = { fg = base16.base0A },
-  CmpItemKindKeyword = { fg = base16.base07 },
-  CmpItemKindMethod = { fg = base16.base0D },
-  CmpItemKindConstructor = { fg = colors.blue },
-  CmpItemKindFolder = { fg = base16.base07 },
-  CmpItemKindModule = { fg = base16.base0A },
-  CmpItemKindProperty = { fg = base16.base08 },
-  CmpItemKindEnum = { fg = colors.blue },
-  CmpItemKindUnit = { fg = base16.base0E },
-  CmpItemKindClass = { fg = colors.teal },
-  CmpItemKindFile = { fg = base16.base07 },
-  CmpItemKindInterface = { fg = colors.green },
-  CmpItemKindColor = { fg = colors.white },
-  CmpItemKindReference = { fg = base16.base05 },
-  CmpItemKindEnumMember = { fg = colors.purple },
-  CmpItemKindStruct = { fg = base16.base0E },
-  CmpItemKindValue = { fg = colors.cyan },
-  CmpItemKindEvent = { fg = colors.yellow },
-  CmpItemKindOperator = { fg = base16.base05 },
-  CmpItemKindTypeParameter = { fg = base16.base08 },
-  CmpItemKindCopilot = { fg = colors.green },
-  CmpItemKindCodeium = { fg = colors.vibrant_green },
-  CmpItemKindTabNine = { fg = colors.baby_pink },
-  CmpItemKindSuperMaven = { fg = colors.yellow },
+  BlinkCmpKindConstant = { fg = base16.base09 },
+  BlinkCmpKindFunction = { fg = base16.base0D },
+  BlinkCmpKindIdentifier = { fg = base16.base08 },
+  BlinkCmpKindField = { fg = base16.base08 },
+  BlinkCmpKindVariable = { fg = base16.base0E },
+  BlinkCmpKindSnippet = { fg = colors.red },
+  BlinkCmpKindText = { fg = base16.base0B },
+  BlinkCmpKindStructure = { fg = base16.base0E },
+  BlinkCmpKindType = { fg = base16.base0A },
+  BlinkCmpKindKeyword = { fg = base16.base07 },
+  BlinkCmpKindMethod = { fg = base16.base0D },
+  BlinkCmpKindConstructor = { fg = colors.blue },
+  BlinkCmpKindFolder = { fg = base16.base07 },
+  BlinkCmpKindModule = { fg = base16.base0A },
+  BlinkCmpKindProperty = { fg = base16.base08 },
+  BlinkCmpKindEnum = { fg = colors.blue },
+  BlinkCmpKindUnit = { fg = base16.base0E },
+  BlinkCmpKindClass = { fg = colors.teal },
+  BlinkCmpKindFile = { fg = base16.base07 },
+  BlinkCmpKindInterface = { fg = colors.green },
+  BlinkCmpKindColor = { fg = colors.white },
+  BlinkCmpKindReference = { fg = base16.base05 },
+  BlinkCmpKindEnumMember = { fg = colors.purple },
+  BlinkCmpKindStruct = { fg = base16.base0E },
+  BlinkCmpKindValue = { fg = colors.cyan },
+  BlinkCmpKindEvent = { fg = colors.yellow },
+  BlinkCmpKindOperator = { fg = base16.base05 },
+  BlinkCmpKindTypeParameter = { fg = base16.base08 },
+  BlinkCmpKindCopilot = { fg = colors.green },
+  BlinkCmpKindCodeium = { fg = colors.vibrant_green },
+  BlinkCmpKindTabNine = { fg = colors.baby_pink },
+  BlinkCmpKindSuperMaven = { fg = colors.yellow },
 }
 
 local styles = {
-  default = {},
-  atom = {
-    CmpItemMenu = { bg = colors.light_grey, italic = true },
+  default = {
+    BlinkCmpItemMenu = { bg = colors.light_grey, italic = true },
   },
-  atom_colored = {
-    CmpItemMenu = { bg = colors.light_grey, italic = true },
+  colored = {
+    BlinkCmpItemMenu = { bg = colors.light_grey, italic = true },
   },
 }
 
@@ -71,13 +72,13 @@ if not styles[style] then
   style = 'default'
 end
 
-if style == 'atom' then
+if style == 'default' then
   for key, value in pairs(item_kinds) do
     item_kinds[key] = { fg = value.fg, bg = colors.black }
   end
 end
 
-if style == 'atom_colored' then
+if style == 'colored' then
   for key, value in pairs(item_kinds) do
     item_kinds[key] = { fg = value.fg, bg = mix(value.fg, colors.black, 85) }
   end
